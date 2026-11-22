@@ -14,7 +14,14 @@ After 13 years together since September 17, 2013, One Patient Gamer finally marr
 
 ## How it works
 
-`main.ts` (Node 22, standard library only) reads `POST.json` from the repository root and validates it: the file must exist and be valid JSON, it must be a non-array object, its `url` field must be a non-empty string, and that URL must be an `https:` URL on `x.com`. If any check fails, it prints an error to stderr and exits 1. On success it writes the exact raw contents of `POST.json` to both `/output/POST.json` and `out/POST.json` and exits 0.
+`main.ts` (Node 22, standard library only) reads `POST.json` from the
+repository root and validates it step by step: the file must exist and
+parse as JSON, it must be an object with a non-empty string `url`, and
+the URL must use https on x.com. Any failure prints a short message to
+stderr and exits 1 through a single `fail` helper. On success it writes
+the exact `POST.json` content to both `/output/POST.json` and
+`out/POST.json` (creating each directory if needed) with one loop over
+the two destinations, and exits 0.
 
 ## Referral
 
